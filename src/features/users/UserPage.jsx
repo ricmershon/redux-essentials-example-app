@@ -13,8 +13,6 @@ export const UserPage = ({ match }) => {
 
     const selectPostsForUser = useMemo(() => {
         const emptyArray = []
-        // Return a unique selector instance for this page so that
-        // the filtered results are correctly memoized
         return createSelector(
             result => result.data,
             (_result, userId) => userId,
@@ -23,13 +21,9 @@ export const UserPage = ({ match }) => {
     }, [])
     
 
-  // Use the same posts query, but extract only part of its data
     const { postsForUser } = useGetPostsQuery(undefined, {
         selectFromResult: result => ({
-            // We can optionally include the other metadata fields from the result here
             ...result,
-            // Include a field called `postsForUser` in the hook result object,
-            // which will be a filtered list of posts
             postsForUser: selectPostsForUser(result, userId)
         })
     })

@@ -7,7 +7,7 @@ export const EditPostForm = ({ match }) => {
     const { postId } = match.params
 
     const { data: post } = useGetPostQuery(postId)
-    const [updatePost, ] = useEditPostMutation()
+    const [editPoast] = useEditPostMutation()
 
     const [title, setTitle] = useState(post.title)
     const [content, setContent] = useState(post.content)
@@ -19,7 +19,7 @@ export const EditPostForm = ({ match }) => {
 
     const onSavePostClicked = async () => {
         if (title && content) {
-            await updatePost({ id: postId, title, content })
+            await editPoast({ id: postId, title, content })
             history.push(`/posts/${postId}`)
         }
     }
